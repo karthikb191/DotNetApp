@@ -1,0 +1,33 @@
+Intellisense starts working when .csproj are added to Solution
+Dotnet commands:
+- listing available templates: dotnet new list
+- Creating Solution: dotnet new sln
+- Creating a webAPi project: dotnet new webapi --name API -controllers
+- Creating a class library: dotnet new classlib [-n|--name]
+- Adding created projects/templates to solution: dotnet sln add <Project>
+
+Project Structure:
+- Domain is in the core and has no dependencies. Contains core business logic
+- Appplication depends on Domain and Persistence. 
+- API depends on Application
+- Persistence depends on Domain
+
+SECTION 1:
+
+- Project we created is a Web-Api project. It doesn't have any views to display in browser. The responsiblity of
+API project is to intercept HTTP requests and send responses. It does that via API end-points
+- [Route("[controller]")]: https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-9.0
+The tokens [action], [area], and [controller] are replaced with the values of the action name, area name, and controller name from the action where the route is defined
+
+Migrations:
+EntityFramework(EF) looks inside the DBContext. Since we've defined as set there called Activities, it's going to give us a table called "Activities".
+Inside "Activity", EF looks at the properties and decide what kind of cloumns they are going to be.
+If there's a property called "Id", EF uses that property as the primary key into the table.
+If there's no property called "Id", we need to specify what peoperty to use as a primary key.
+We can use [Key] attribute to specify that
+Creating a migration: 
+    dotnet ef migrations add InitialCreate -p Persistence -s API
+To actually create a database(This can be done through code):
+    dotnet ef database update -p Persistence -s API 
+To drop the database: 
+    dotnet ef database drop -p .\Persistence\ -s .\API\
