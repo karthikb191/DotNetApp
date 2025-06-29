@@ -5,7 +5,7 @@ namespace Persistence;
 public class DbInitializer
 {
 
-    public static async Task SeedDate(AppDbContext context)
+    public static async Task SeedData(AppDbContext context)
     {
         //We only want to seed activities if the database is empty
         if (context.Activities.Any())

@@ -31,3 +31,15 @@ To actually create a database(This can be done through code):
     dotnet ef database update -p Persistence -s API 
 To drop the database: 
     dotnet ef database drop -p .\Persistence\ -s .\API\
+
+
+Section 2:
+- Use Vite for quickly creating React applications. 
+CORS: Cross-Origin Request Sharing. It's a security feature implemented by web browsers that restrict cross domain resource sharing.
+Example, from localhost:5001 to localhost:3000
+- In development mode, there might be 2 requests for the API call we are making.
+Reason: We are operating in strict mode. When we are writing code in development and in strict mode, if we have UseEffect,
+    it gets executed twice. It executes as the component mounts. And, it tests the cleanup code and it executes the useEffect again
+
+To prevent error lines when working with Typescript, we need to give Typescript information about what a certain type is.
+Use JsonToTs web tool to easily get type object

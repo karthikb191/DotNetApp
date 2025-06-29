@@ -11,12 +11,16 @@ builder.Services.AddDbContext<Persistence.AppDbContext>(op =>
 {
     op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddCors();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 //app.UseHttpsRedirection();
 //app.UseAuthorization();
+//CORS should be added before mapping controllers
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https:localhost:3000"));
 
 app.MapControllers();
 
@@ -28,7 +32,7 @@ try
     AppDbContext context = services.GetRequiredService<AppDbContext>();
     //Will create database if it doesnt already exist
     await context.Database.MigrateAsync();
-    await DbInitializer.SeedDate(context);
+    await DbInitializer.SeedData(context);
 }
 catch (System.Exception ex)
 {
