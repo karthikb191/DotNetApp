@@ -10,6 +10,13 @@ function App() {
   // This should execute when the above component mounts. It will execute the code here.
   // It will execute once 
   useEffect(()=>{
+    /*using javascript
+    //Fetches a resource from the network
+    const jsPromise = fetch("https://localhost:5001/api/activities")
+    jsPromise
+    .then(response => response.json())
+    .then(data => SetActivities(data))*/
+
     const promise = axios.get<Activity[]>("https://localhost:5001/api/activities")
     promise.then(response => SetActivities(response.data))
   }, []);

@@ -12,6 +12,13 @@ Project Structure:
 - API depends on Application
 - Persistence depends on Domain
 
+
+Running the project:
+- Server: Go to API folder and run dotnet watch
+- Client: npm run dev (client uses vite.)
+
+
+
 SECTION 1:
 
 - Project we created is a Web-Api project. It doesn't have any views to display in browser. The responsiblity of
@@ -20,7 +27,7 @@ API project is to intercept HTTP requests and send responses. It does that via A
 The tokens [action], [area], and [controller] are replaced with the values of the action name, area name, and controller name from the action where the route is defined
 
 Migrations:
-EntityFramework(EF) looks inside the DBContext. Since we've defined as set there called Activities, it's going to give us a table called "Activities".
+EntityFramework(EF) looks inside the DBContext. Since we've defined a set there called Activities, it's going to give us a table called "Activities".
 Inside "Activity", EF looks at the properties and decide what kind of cloumns they are going to be.
 If there's a property called "Id", EF uses that property as the primary key into the table.
 If there's no property called "Id", we need to specify what peoperty to use as a primary key.
@@ -43,3 +50,16 @@ Reason: We are operating in strict mode. When we are writing code in development
 
 To prevent error lines when working with Typescript, we need to give Typescript information about what a certain type is.
 Use JsonToTs web tool to easily get type object
+
+Section 4:
+- Application layer is responsible for processing the business logic. The flow is such that we go from controllers in API via 
+the application layer to the presenters in API layer
+1. Controllers receive HTTP requests from client(React app)
+2. Controller sends this request to Use-Case input port. This is application layer
+3. "Use case interactor" processes the business logic and returns an output object through "Use-Case output port" to "Presenter" in API layer.
+4. API presenter then sends out the HTTP Response. 
+5. Idea is to use a mediator to achieve this
+
+- CQRS(Command-Query-responsibility-Separation): Idea is to separate commands from queries.
+Commands update/change state of the database.
+Queries doesnt modify state, answers a question and returns a value.
